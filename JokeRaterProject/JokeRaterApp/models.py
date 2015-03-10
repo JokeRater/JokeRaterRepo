@@ -2,31 +2,28 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-class Joke(models.Model):
+class Categories(models.Model):
         content = models.CharField(max_length=500, unique=True)
         views = models.IntegerField(default=0)
-        
-
-
-        
+        #
         name = models.CharField(max_length=128, unique=True)
-        views = models.IntegerField(default=0)
-        likes = models.IntegerField(default=0)
+
         slug = models.SlugField(unique=True)
 
         def save(self, *args, **kwargs):
                 self.slug = slugify(self.name)
-                super(Category, self).save(*args, **kwargs)
+                super(Categories, self).save(*args, **kwargs)
 
         def __unicode__(self):
                 return self.name
         
 
-class Categories(models.Model):
-    category = models.ForeignKey(Category)
+class Jokes(models.Model):
+    category = models.ForeignKey(Categories)
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.title
@@ -41,3 +38,5 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
 	def __unicode__(self):
 		return self.user.username
+
+    #Test line to try and force a commit
