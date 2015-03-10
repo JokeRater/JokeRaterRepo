@@ -16,7 +16,11 @@ from datetime import datetime
 
 def index(request):
     context_dict = {}
+<<<<<<< HEAD
     return render(request, 'JokeRater/index.html', context_dict)
+=======
+    return render(request,'JokeRater/index.html', context_dict)
+>>>>>>> 0b5052df6f5ada83e77ea4624cd8d0089f111570
 
 
 def about(request):
