@@ -23,16 +23,53 @@
 		padding-top:0px;
 		margin-top: 0px;
 	}
+	.navSettings{
+		position: relative;
+		left: 100px;
+		font-size: 20px
+	}
+	.blueText{
+		color: blue;
+	}
+	.centreButton{
+		position: relative;
+		left: 80px;
+	}
+	.sideBarText{
+		font-size: 16px;
+	}.sideBarText{
+		font-size: 16px;
+	}.sideBarTextSmall{
+		font-size: 12px;
+		padding-bottom: 10px;
+	}
+	.compareJokeLeft{
+		background-color: #6699FF;
+		position: relative;
+		left: 50px;
+		top: 100px;
+		width: 300px;
+		height: 350px;
+	}
+	.compareJokeRight{
+		background-color: #6699FF;
+		position: relative;
+		width: 300px;
+		height: 350px;
+	}
+	
 	</style>
 	
   
   <body>
 	<div class="container">
+	
 		<div class="row">
 			<div class="col-md-12">
 				<img src="{% static "images/banner.png" %}" class="img-responsive" alt="Banner" />
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-md-12">
 				<nav class="navbar navbar-default">
@@ -57,28 +94,17 @@
 							</form>
 							
 							<ul class="nav navbar-nav">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Compare <span class="caret"></span></a>
+								<li class="dropdown navSettings">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Compare <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
 										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
 									</ul>
 								</li>
-								<li class="dropdown">
+								<li class="dropdown navSettings">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Random <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#">Action</a></li>
-										<li><a href="#">Another action</a></li>
-										<li><a href="#">Something else here</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-										<li class="divider"></li>
-										<li><a href="#">One more separated link</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -92,11 +118,48 @@
 				</nav>
 			</div>
 		<div>
-    <div>
-    {% block body_block %}{% endblock %}
-          
-
-   
+		
+		<div class="row">
+			<div class="col-md-9">
+				{% block body_block %}{% endblock %}
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">Overall Top Rated Jokes</div>
+					<div class="panel-body">
+						<div class="sideBarText"> 1. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234</div>
+						<div class="sideBarText"> 2. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall"> SuperUser1234  </div>
+						<div class="sideBarText"> 3. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234  </div>
+						<div class="sideBarText"> 4. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234 </div> 
+						<div class="sideBarText"> 5. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234 </div>
+						<button type="button" class="btn btn-primary centreButton">See More</button>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Daily Top Rated Jokes</div>
+					<div class="panel-body">
+						<div class="sideBarText"> 1. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234</div>
+						<div class="sideBarText"> 2. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall"> SuperUser1234  </div>
+						<div class="sideBarText"> 3. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234  </div>
+						<div class="sideBarText"> 4. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234 </div> 
+						<div class="sideBarText"> 5. Why did the chicken cross the road</div>
+						<div class="sideBarTextSmall">SuperUser1234 </div>
+						<button type="button" class="btn btn-primary centreButton">See More</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>     
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
