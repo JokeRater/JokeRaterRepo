@@ -16,11 +16,11 @@
 				<div class="panel panel-primary panelStyling">
 					<div class="panel-body">
 						<p>
-							Why did the chicken cross the road?
+							{{ joke1.content }}
 						</p>
 						</br>
 						<p>
-							To get to the other side
+							{{ joke1.punchline}}
 						</p>
 					</div>
 				</div>
@@ -29,23 +29,26 @@
 				<div class="panel panel-primary panelStyling">
 					<div class="panel-body">
 						<p>
-							Why did the chicken cross the road?
+							{{ joke2.content }}
 						</p>
 						</br>
 						<p>
-							To get to the other side
+							{{ joke2.punchline}}
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<button type="button" class="btn btn-primary chooseButtonLeft">Select</button>
+		<form id="form" method="post" action="{% url 'index' %}">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-primary chooseButtonLeft" name="left">Select</button>
+				</div>
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-primary chooseButtonRight" name="right">Select</button>
+				</div>
 			</div>
-			<div class="col-md-4">
-				<button type="button" class="btn btn-primary chooseButtonRight">Select</button>
-			</div>
-		</div>
+		</form>
 	</div>
 {% endblock %}

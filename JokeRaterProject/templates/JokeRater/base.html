@@ -63,7 +63,7 @@
 	.compareJoke{
 		margin-left:20px;
 		margin-right:20px;
-		font-size:30px;
+		font-size:20px;
 	}	
 	.panelStyling{
 		border-width: 20px;
@@ -132,8 +132,13 @@
 							</ul>
 							
 							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#">Login</a></li>
-								<li><a href="#">Register</a></li>
+								{% if user.is_authenticated %}
+									<li><a href="#">Profile</a></li>
+									<li><a href="{% url 'auth_logout' %}?next=/JokeRater/">Log Out</a></li>
+								{% else %}
+									<li><a href="{% url 'auth_login' %}">Login</a></li>
+									<li><a href="{% url 'registration_register' %}">Register</a></li>
+								{% endif %}
 							</ul>
 						</div>
 					</div>

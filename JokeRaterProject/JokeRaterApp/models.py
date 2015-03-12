@@ -15,21 +15,22 @@ class Category(models.Model):
                 return self.name
         
 
-# class Joke(models.Model):
-    # category = models.ForeignKey(Category)
-    # title = models.CharField(max_length=128)
-    # views = models.IntegerField(default=0)
+class Joke(models.Model):
+        category = models.ForeignKey(Category)
+	content = models.CharField(max_length=400)
+	punchline = models.CharField(max_length=100)
+	rating = models.IntegerField(default=0)
+	# postingUser = models.ForeignKey(Category)
+        def __unicode__(self):
+                return self.content
 
-    # def __unicode__(self):
-        # return self.title
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
 
-# class UserProfile(models.Model):
-	# user = models.OneToOneField(User)
+	location = models.CharField(max_length=50, unique=True)
+	picture = models.ImageField(upload_to='profile_images', blank=True)
 
-	# location = models.CharField(max_length=50, unique=True)
-	# picture = models.ImageField(upload_to='profile_images', blank=True)
-
-	# def __unicode__(self):
-		# return self.user.username
+	def __unicode__(self):
+		return self.user.username
 
  

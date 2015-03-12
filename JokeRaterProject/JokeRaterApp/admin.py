@@ -8,3 +8,5 @@ from JokeRaterApp.models import *
     # prepopulated_fields = {'slug':('name',)}
         
 admin.site.register(Category)
+admin.site.register(Joke)
+admin.site.register(UserProfile)

@@ -12,14 +12,61 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 from datetime import datetime
+import random
 
 
 def index(request):
-        categories = Category.objects.all()
         context_dict = {}
+        categories = Category.objects.all()
 	context_dict['categories'] = categories
+	joke = Joke.objects.all()
+        size = len(joke)
+        random1 = random.randint(0, size-1)
+	
+        while True:
+                random2 = random.randint(0, size-1)
+                if random1 != random2:
+                        break
+                
+        context_dict['joke1'] = joke[random1]
+	context_dict['joke2'] = joke[random2]
+	
+        if request.method == 'POST':
+                if '_left' in request.POST:
+                        print "left"
+                elif '_righ' in request.POST:
+                         print "right"
+                
+        
+	
 	return render(request, 'JokeRater/index.html', context_dict)
 
+def register_profile(request):
+
+	completed = False
+	if request.method == 'POST':
+		try:
+			profile = UserProfile.objects.get(user=request.user)
+			profile_form = UserProfileForm(request.POST, instance=profile)
+		except:
+			profile_form = UserProfileForm(request.POST)
+		if profile_form.is_valid():
+			if request.user.is_authenticated():
+				profile = profile_form.save(commit=False)
+				user = request.user
+				profile.user = user
+				try:
+					profile.picture = request.FILES['picture']
+				except:
+					pass
+				profile.save()
+				completed = True
+		else:
+			print profile_form.errors
+		return index(request)
+	else:
+		profile_form = UserProfileForm(request.GET)
+	return render(request, 'JokeRater/profile_registration.html', {'profile_form': profile_form, 'completed': completed})
 
 # def about(request):
     # context_dict = {}

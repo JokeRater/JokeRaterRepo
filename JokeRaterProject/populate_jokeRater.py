@@ -4,16 +4,28 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JokeRaterProject.settings')
 import django
 django.setup()
 
-from JokeRaterApp.models import Category
+from JokeRaterApp.models import Category, Joke
 
 
 def populate():
     cat = Category(name="Puns")
     cat.save()
-    cat = Category(name="Doctor-Doctor")
-    cat.save()
+    Doctor = Category(name="Doctor-Doctor")
+    Doctor.save()
     cat = Category(name="Play-on-Words")
     cat.save()
+	
+    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6")
+    joke.save()
+    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10")
+    joke.save()
+    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9")
+    joke.save()
+    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4")
+    joke.save()
+    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12")
+    joke.save()
+	
 
 ##    add_page(cat=python_cat,
 ##        title="Official Python Tutorial",
