@@ -15,8 +15,10 @@ from datetime import datetime
 
 
 def index(request):
-    context_dict = {}
-    return render(request, 'JokeRater/index.html', context_dict)
+        categories = Category.objects.all()
+        context_dict = {}
+	context_dict['categories'] = categories
+	return render(request, 'JokeRater/index.html', context_dict)
 
 
 # def about(request):
