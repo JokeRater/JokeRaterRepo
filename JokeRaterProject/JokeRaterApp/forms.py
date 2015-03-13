@@ -1,7 +1,20 @@
 from django import forms
 from django.contrib.auth.models import User
-from JokeRaterApp.models import Category, UserProfile
+from JokeRaterApp.models import Category, UserProfile, Joke
 
+class JokeForm(forms.ModelForm):
+	class Meta:
+                model = Joke
+                fields = ('content', 'punchline')
+		
+	#content = forms.CharField(max_length=400, help_text="Please enter your joke:")
+	#punchline = forms.CharField(max_length=100, help_text="Please enter the punchline:")
+	
+	# category = models.ForeignKey(Category)
+	# content = models.CharField(max_length=400)
+	# punchline = models.CharField(max_length=100)
+	# rating = models.IntegerField(default=0)
+	# postingUser = models.ForeignKey(Category)
 
 # class CategoryForm(forms.ModelForm):
     # name = forms.CharField(max_length=128, help_text="Please enter the category name.")

@@ -10,6 +10,7 @@
     
     <title>JokeRater - {% block title %}{% endblock %}</title>
 	{% load staticfiles %}
+	
 
 	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +18,7 @@
 	
 	
   </head>
-  
+  {% load jokeRater %}
   <style>
 	body{
 		padding-top:0px;
@@ -76,6 +77,11 @@
 		margin-top: 50px;
 		margin-bottom: 10px;
 	}
+	
+	.usernameText{
+		margin-left: 10px;
+		font-size: 20px
+	}
 		
 	</style>
 	
@@ -116,24 +122,24 @@
 								<li class="dropdown navSettings">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Compare <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
-										 {% for category in categories %}
-											<li><a href="#">{{category.name}}</a></li>
-										{% endfor %}
+										 {% block category_dropdown1 %}
+											{% get_category_list %}
+										{% endblock %}
 									</ul>
 								</li>
 								<li class="dropdown navSettings">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Random <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
-										{% for category in categories %}
-											<li><a href="#">{{category.name}}</a></li>
-										{% endfor %}
+										{% block category_dropdown2 %}
+											{% get_category_list %}
+										{% endblock %}
 									</ul>
 								</li>
 							</ul>
 							
 							<ul class="nav navbar-nav navbar-right">
 								{% if user.is_authenticated %}
-									<li><a href="#">Profile</a></li>
+									<li><a href="{% url 'profile' %}">Profile</a></li>
 									<li><a href="{% url 'auth_logout' %}?next=/JokeRater/">Log Out</a></li>
 								{% else %}
 									<li><a href="{% url 'auth_login' %}">Login</a></li>
@@ -154,16 +160,9 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Overall Top Rated Jokes</div>
 					<div class="panel-body">
-						<div class="sideBarText"> 1. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234</div>
-						<div class="sideBarText"> 2. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall"> SuperUser1234  </div>
-						<div class="sideBarText"> 3. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234  </div>
-						<div class="sideBarText"> 4. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234 </div> 
-						<div class="sideBarText"> 5. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234 </div>
+						{% block overall_list %}
+							{% get_top_overall %}
+						{% endblock %}
 						<button type="button" class="btn btn-primary centreButton">See More</button>
 					</div>
 				</div>

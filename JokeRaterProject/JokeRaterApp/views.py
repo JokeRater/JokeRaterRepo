@@ -17,8 +17,6 @@ import random
 
 def index(request):
         context_dict = {}
-        categories = Category.objects.all()
-	context_dict['categories'] = categories
 	joke = Joke.objects.all()
         size = len(joke)
         random1 = random.randint(0, size-1)
@@ -27,18 +25,60 @@ def index(request):
                 random2 = random.randint(0, size-1)
                 if random1 != random2:
                         break
-                
-        context_dict['joke1'] = joke[random1]
-	context_dict['joke2'] = joke[random2]
+
+        joke1 = joke[random1]
+        joke2 = joke[random2]
+        context_dict['joke1'] = joke1
+	context_dict['joke2'] = joke2
 	
-        if request.method == 'POST':
-                if '_left' in request.POST:
-                        print "left"
-                elif '_righ' in request.POST:
-                         print "right"
+        if request.POST.get('select') == 'left':
+                print joke1.rating
+                print joke2.rating
+                if (joke1.rating-joke2.rating)>=20:
+                        joke1.rating += 1
+                        joke2.rating -= 1
+                elif (joke1.rating-joke2.rating)>=10:
+                        joke1.rating += 2
+                        joke2.rating -= 2
+                elif (joke1.rating-joke2.rating)>=0:
+                        joke1.rating += 3
+                        joke2.rating -= 3
+                elif (joke1.rating-joke2.rating)>=-10:
+                        joke1.rating += 4
+                        joke2.rating -= 4
+                else:
+                        joke1.rating += 5
+                        joke2.rating -= 5
+                joke1.save()
+                joke2.save()
+                print "left"
+                print joke1.rating
+                print joke2.rating
                 
+        elif request.POST.get('select') == 'right':
+                print joke1.rating
+                print joke2.rating
+                if (joke2.rating-joke1.rating)>=20:
+                        joke2.rating += 1
+                        joke1.rating -= 1
+                elif (joke2.rating-joke1.rating)>=10:
+                        joke2.rating += 2
+                        joke1.rating -= 2
+                elif (joke2.rating-joke1.rating)>=0:
+                        joke2.rating += 3
+                        joke1.rating -= 3
+                elif (joke2.rating-joke1.rating)>=-10:
+                        joke2.rating += 4
+                        joke1.rating -= 4
+                else:
+                        joke2.rating += 5
+                        joke1.rating -= 5
+                joke1.save()
+                joke2.save()
+                print "right"
+                print joke1.rating
+                print joke2.rating
         
-	
 	return render(request, 'JokeRater/index.html', context_dict)
 
 def register_profile(request):
@@ -67,6 +107,19 @@ def register_profile(request):
 	else:
 		profile_form = UserProfileForm(request.GET)
 	return render(request, 'JokeRater/profile_registration.html', {'profile_form': profile_form, 'completed': completed})
+
+@login_required
+def profile(request):
+        user = request.user
+        context_dict = {}
+        context_dict['user'] = user
+        try:
+                profile = UserProfile.objects.get(user=user)
+        except:
+                profile = None
+        context_dict['profile'] = profile
+        return render(request, 'JokeRater/profile.html', context_dict)
+
 
 # def about(request):
     # context_dict = {}

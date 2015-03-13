@@ -1,0 +1,28 @@
+{% extends 'JokeRater/base.html' %}
+
+{% block body_block %}
+<div class="container">
+	<div class="row topMargin">
+		<div class="col-md-3 ">
+			<img height="200" class="img-rounded" src="{{profile.picture.url}}" alt="Profile Picture" />
+		</div>
+		<div class="col-md-4">
+		
+			<h2 class="form-signin-heading">User Profile</h2>
+			</br>
+			<form id="joke_form" method="post" action="/JokeRater/profile/" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ profile_form.as_p }}
+				</br>
+				<button class="btn btn-primary"  type="submit" name="submit">Submit</button>
+			</form>
+			
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3 usernameText">
+			{{user.username}}
+		</div>
+	</div>	
+</div>
+{% endblock %}
