@@ -111,13 +111,28 @@ def register_profile(request):
 @login_required
 def profile(request):
         user = request.user
+	profile = UserProfile.objects.get(user=user)
         context_dict = {}
+	completed = False
+	if request.method == 'POST':
+                joke_form = JokeForm(request.POST)
+		if joke_form.is_valid():
+			joke = joke_form.save(commit=False)
+			joke.rating = 0
+			category = Category.objects.all()
+			category = category[0]
+			joke.category = category
+			joke.save()
+			completed = True
+		else:
+			print joke_form.errors
+	else:
+		joke_form = JokeForm(request.GET)
+		
         context_dict['user'] = user
-        try:
-                profile = UserProfile.objects.get(user=user)
-        except:
-                profile = None
         context_dict['profile'] = profile
+        context_dict['joke_form'] = joke_form
+        context_dict['completed'] = completed
         return render(request, 'JokeRater/profile.html', context_dict)
 
 

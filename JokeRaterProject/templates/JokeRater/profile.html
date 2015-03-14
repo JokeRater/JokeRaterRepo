@@ -8,11 +8,17 @@
 		</div>
 		<div class="col-md-4">
 		
-			<h2 class="form-signin-heading">User Profile</h2>
+			<h2 class="form-signin-heading">Enter a joke:</h2>
 			</br>
 			<form id="joke_form" method="post" action="/JokeRater/profile/" enctype="multipart/form-data">
 				{% csrf_token %}
-				{{ profile_form.as_p }}
+				<textarea class="form-control" rows="3">
+				{{ joke_form.content }}
+				</textarea>
+				</br>
+				<textarea class="form-control" rows="3">
+				{{ joke_form.punchline }}
+				</textarea>
 				</br>
 				<button class="btn btn-primary"  type="submit" name="submit">Submit</button>
 			</form>
