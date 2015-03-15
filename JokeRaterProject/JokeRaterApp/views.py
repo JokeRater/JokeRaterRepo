@@ -141,6 +141,8 @@ def category(request, category_name_slug):
     context_dict = {}
     context_dict['result_list'] = None
     context_dict['query'] = None
+
+
     if request.method == 'POST':
 
         try:
