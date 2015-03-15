@@ -136,6 +136,40 @@ def profile(request):
         return render(request, 'JokeRater/profile.html', context_dict)
 
 
+def category(request, category_name_slug):
+
+    context_dict = {}
+    context_dict['result_list'] = None
+    context_dict['query'] = None
+    if request.method == 'POST':
+
+        try:
+            query = request.POST['query'].strip()
+
+            if query:
+                result_list = run_query(query)
+
+                context_dict['result_list'] = result_list
+                context_dict['query'] = query
+        except:
+            pass
+
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+        context_dict['category_name'] = category.name
+        jokes = Joke.objects.filter(category=category).order_by('-rating')
+        context_dict['pages'] = jokes
+        context_dict['category'] = category
+        if not context_dict['query']:
+            context_dict['query'] = category.name
+    except Category.DoesNotExist:
+        return render(request, 'JokeRater/category.html', context_dict)
+
+    if not context_dict['query']:
+        context_dict['query'] = category.name
+
+    return render(request, 'JokeRater/category.html', context_dict)
+
 # def about(request):
     # context_dict = {}
     # return render(request, 'JokeRater/about.html', context_dict)

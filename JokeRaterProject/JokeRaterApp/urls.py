@@ -5,5 +5,8 @@ from JokeRaterApp import views
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
 		url(r'^register_profile/', views.register_profile, name='register_profile'),
-		url(r'^profile/', views.profile, name='profile'),)
+		url(r'^profile/', views.profile, name='profile'),
+        url(r'^category/(?P<category_name_slug>\w+)$', views.category, name='category'),
+        url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
+        )
 		
