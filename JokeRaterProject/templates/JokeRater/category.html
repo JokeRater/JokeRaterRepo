@@ -43,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<form id="form" method="post" action="{% url 'index' %}">
+		<form id="form" method="post" action="{% url 'category'  category.slug %}">
 			{% csrf_token %}
 			<div class="row">
 				<div class="col-md-4">

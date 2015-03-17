@@ -6,6 +6,7 @@ django.setup()
 
 from JokeRaterApp.models import Category, Joke
 from django.contrib.auth.models import User
+import datetime
 
 
 def populate():
@@ -16,7 +17,12 @@ def populate():
     play = Category(name="Play-on-Words")
     play.save()
 
-    chris = User(username="Chris",email="chrisbrown365@btinternet.com",password="chris")
+    chris = User.objects.create_user( "Chris", "chrisbrown365@btinternet.com", "chris" )
+    chris.first_name="Chris"
+    chris.is_superuser=True
+    chris.is_staff=True
+    chris.date_joined=datetime.datetime.today()
+    chris.last_login=datetime.datetime.today()
     chris.save
     
 	
@@ -30,15 +36,25 @@ def populate():
     joke.save()
     joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12",postingUser=chris)
     joke.save()
-    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="5",postingUser=chris)
+    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="0",postingUser=chris)
     joke.save()
-    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="15",postingUser=chris)
+    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="0",postingUser=chris)
     joke.save()
     joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating="0",postingUser=chris)
     joke.save()
-    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="10",postingUser=chris)
+    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="0",postingUser=chris)
     joke.save()
-    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="9",postingUser=chris)
+    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=pun,content="I wondered why the baseball was getting bigger.",punchline="Then it hit me.",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=pun,content="I couldn't quite remember how to throw a boomerang,",punchline="but eventually it came back to me.",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=pun,content="Police were called to a daycare.",punchline="A three-year-old was resisting a rest.",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=pun,content="Don't trust people that do acupuncture",punchline="they're back stabbers.",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=pun,content="I used to have a fear of hurdles,",punchline="but I got over it.",rating="0",postingUser=chris)
     joke.save()
 	
 
