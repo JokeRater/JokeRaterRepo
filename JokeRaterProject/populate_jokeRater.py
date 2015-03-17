@@ -5,25 +5,40 @@ import django
 django.setup()
 
 from JokeRaterApp.models import Category, Joke
+from django.contrib.auth.models import User
 
 
 def populate():
-    cat = Category(name="Puns")
-    cat.save()
-    Doctor = Category(name="Doctor-Doctor")
-    Doctor.save()
-    cat = Category(name="Play-on-Words")
-    cat.save()
+    pun = Category(name="Puns")
+    pun.save()
+    doctor = Category(name="Doctor-Doctor")
+    doctor.save()
+    play = Category(name="Play-on-Words")
+    play.save()
+
+    chris = User(username="Chris",email="chrisbrown365@btinternet.com",password="chris")
+    chris.save
+    
 	
-    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6")
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6",postingUser=chris)
     joke.save()
-    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10")
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10",postingUser=chris)
     joke.save()
-    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9")
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9",postingUser=chris)
     joke.save()
-    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4")
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4",postingUser=chris)
     joke.save()
-    joke = Joke(category=Doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12")
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12",postingUser=chris)
+    joke.save()
+    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="5",postingUser=chris)
+    joke.save()
+    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="15",postingUser=chris)
+    joke.save()
+    joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating="0",postingUser=chris)
+    joke.save()
+    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="10",postingUser=chris)
+    joke.save()
+    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="9",postingUser=chris)
     joke.save()
 	
 

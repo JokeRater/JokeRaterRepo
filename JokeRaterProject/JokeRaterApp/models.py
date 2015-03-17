@@ -20,7 +20,7 @@ class Joke(models.Model):
 	content = models.CharField(max_length=400)
 	punchline = models.CharField(max_length=100)
 	rating = models.IntegerField(default=0)
-	# postingUser = models.ForeignKey(Category)
+	postingUser = models.ForeignKey(User)
         def __unicode__(self):
                 return self.content
 

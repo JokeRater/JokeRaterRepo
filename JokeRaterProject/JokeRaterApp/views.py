@@ -141,34 +141,61 @@ def profile(request):
 
 def category(request, category_name_slug):
     context_dict = {}
-    context_dict['result_list'] = None
-    context_dict['query'] = None
-    if request.method == 'POST':
+    JokeCategory = Category.objects.get(slug=category_name_slug)
+    context_dict['category'] = JokeCategory
+    joke = Joke.objects.filter(category=JokeCategory)
+    size = len(joke)
+    random1 = random.randint(0, size - 1)
 
-        try:
-            query = request.POST['query'].strip()
+    while True:
+        random2 = random.randint(0, size - 1)
+        if random1 != random2:
+            break
 
-            if query:
-                result_list = run_query(query)
+    joke1 = joke[random1]
+    joke2 = joke[random2]
+    context_dict['joke1'] = joke1
+    context_dict['joke2'] = joke2
 
-                context_dict['result_list'] = result_list
-                context_dict['query'] = query
-        except:
-            pass
+    if request.POST.get('select') == 'left':
+        if (joke1.rating - joke2.rating) >= 20:
+            joke1.rating += 1
+            joke2.rating -= 1
+        elif (joke1.rating - joke2.rating) >= 10:
+            joke1.rating += 2
+            joke2.rating -= 2
+        elif (joke1.rating - joke2.rating) >= 0:
+            joke1.rating += 3
+            joke2.rating -= 3
+        elif (joke1.rating - joke2.rating) >= -10:
+            joke1.rating += 4
+            joke2.rating -= 4
+        else:
+            joke1.rating += 5
+            joke2.rating -= 5
+        joke1.save()
+        joke2.save()
+        print "left"
 
-    try:
-        category = Category.objects.get(slug=category_name_slug)
-        context_dict['category_name'] = category.name
-        jokes = Joke.objects.filter(category=category).order_by('-rating')
-        context_dict['pages'] = jokes
-        context_dict['category'] = category
-        if not context_dict['query']:
-            context_dict['query'] = category.name
-    except Category.DoesNotExist:
-        return render(request, 'JokeRater/category.html', context_dict)
-
-    if not context_dict['query']:
-        context_dict['query'] = category.name
+    elif request.POST.get('select') == 'right':
+        if (joke2.rating - joke1.rating) >= 20:
+            joke2.rating += 1
+            joke1.rating -= 1
+        elif (joke2.rating - joke1.rating) >= 10:
+            joke2.rating += 2
+            joke1.rating -= 2
+        elif (joke2.rating - joke1.rating) >= 0:
+            joke2.rating += 3
+            joke1.rating -= 3
+        elif (joke2.rating - joke1.rating) >= -10:
+            joke2.rating += 4
+            joke1.rating -= 4
+        else:
+            joke2.rating += 5
+            joke1.rating -= 5
+        joke1.save()
+        joke2.save()
+        print "right"
 
     return render(request, 'JokeRater/category.html', context_dict)
 
