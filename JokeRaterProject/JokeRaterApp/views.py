@@ -20,20 +20,25 @@ def index(request):
     joke = Joke.objects.all()
     size = len(joke)
     random1 = random.randint(0, size - 1)
-
     while True:
         random2 = random.randint(0, size - 1)
         if random1 != random2:
             break
-
     joke1 = joke[random1]
     joke2 = joke[random2]
     context_dict['joke1'] = joke1
     context_dict['joke2'] = joke2
+    
+    orderedJokes = Joke.objects.order_by('-rating')
+    for i in range(0,len(orderedJokes)):
+        if orderedJokes[i] == joke1:
+            context_dict['joke1_position'] = i+1
+        if orderedJokes[i] == joke2:
+            context_dict['joke2_position'] = i+1
+        i = i + 1
+    
 
     if request.POST.get('select') == 'left':
-        print joke1.rating
-        print joke2.rating
         if (joke1.rating - joke2.rating) >= 20:
             joke1.rating += 1
             joke2.rating -= 1
@@ -52,12 +57,8 @@ def index(request):
         joke1.save()
         joke2.save()
         print "left"
-        print joke1.rating
-        print joke2.rating
 
     elif request.POST.get('select') == 'right':
-        print joke1.rating
-        print joke2.rating
         if (joke2.rating - joke1.rating) >= 20:
             joke2.rating += 1
             joke1.rating -= 1
@@ -76,8 +77,7 @@ def index(request):
         joke1.save()
         joke2.save()
         print "right"
-        print joke1.rating
-        print joke2.rating
+
 
     return render(request, 'JokeRater/index.html', context_dict)
 
