@@ -14,72 +14,75 @@ from django.contrib.auth import logout
 from datetime import datetime
 import random
 
+previous = {}
 
 def index(request):
-    context_dict = {}
-    joke = Joke.objects.all()
-    size = len(joke)
-    random1 = random.randint(0, size - 1)
-    while True:
-        random2 = random.randint(0, size - 1)
-        if random1 != random2:
-            break
-    joke1 = joke[random1]
-    joke2 = joke[random2]
-    context_dict['joke1'] = joke1
-    context_dict['joke2'] = joke2
-    
-    orderedJokes = Joke.objects.order_by('-rating')
-    for i in range(0,len(orderedJokes)):
-        if orderedJokes[i] == joke1:
-            context_dict['joke1_position'] = i+1
-        if orderedJokes[i] == joke2:
-            context_dict['joke2_position'] = i+1
-        i = i + 1
-    
+        if request.POST.get('select') == 'left':
+                jokeA = previous['joke1']
+                jokeB = previous['joke2']
+                if (jokeA.rating - jokeB.rating) >= 20:
+                    jokeA.rating += 1
+                    jokeB.rating -= 1
+                elif (jokeA.rating - jokeB.rating) >= 10:
+                    jokeA.rating += 2
+                    jokeB.rating -= 2
+                elif (jokeA.rating - jokeB.rating) >= 0:
+                    jokeA.rating += 3
+                    jokeB.rating -= 3
+                elif (jokeA.rating - jokeB.rating) >= -10:
+                    jokeA.rating += 4
+                    jokeB.rating -= 4
+                else:
+                    jokeA.rating += 5
+                    jokeB.rating -= 5
+                jokeA.save()
+                jokeB.save()
+                print "left"
+        elif request.POST.get('select') == 'right':
+                jokeA = previous['joke1']
+                jokeB = previous['joke2']
+                if (jokeB.rating - jokeA.rating) >= 10:
+                    jokeB.rating += 1
+                    jokeA.rating -= 1
+                elif (jokeB.rating - jokeA.rating) >= 0:
+                    jokeB.rating += 2
+                    jokeA.rating -= 2
+                elif (jokeB.rating - jokeA.rating) >= -10:
+                    jokeB.rating += 3
+                    jokeA.rating -= 3
+                elif (jokeB.rating - jokeA.rating) >= -20:
+                    jokeB.rating += 4
+                    jokeA.rating -= 4
+                else:
+                    jokeB.rating += 5
+                    jokeA.rating -= 5
+                jokeA.save()
+                jokeB.save()
+                print "right"
+                
+        context_dict = {}
+        jokes = Joke.objects.order_by('-rating')
+        size = len(jokes)
+        random1 = random.randint(0, size-1)
+        while True:
+                random2 = random.randint(0, size - 1)
+                if random1 != random2:
+                    break
+        joke1 = jokes[random1]
+        joke2 = jokes[random2]
+        context_dict['joke1'] = joke1
+        context_dict['joke2'] = joke2
+            
+        for i in range(0,size):
+                if jokes[i] == joke1:
+                        context_dict['joke1_position'] = i+1
+                elif jokes[i] == joke2:
+                        context_dict['joke2_position'] = i+1
+                i = i + 1
 
-    if request.POST.get('select') == 'left':
-        if (joke1.rating - joke2.rating) >= 20:
-            joke1.rating += 1
-            joke2.rating -= 1
-        elif (joke1.rating - joke2.rating) >= 10:
-            joke1.rating += 2
-            joke2.rating -= 2
-        elif (joke1.rating - joke2.rating) >= 0:
-            joke1.rating += 3
-            joke2.rating -= 3
-        elif (joke1.rating - joke2.rating) >= -10:
-            joke1.rating += 4
-            joke2.rating -= 4
-        else:
-            joke1.rating += 5
-            joke2.rating -= 5
-        joke1.save()
-        joke2.save()
-        print "left"
-
-    elif request.POST.get('select') == 'right':
-        if (joke2.rating - joke1.rating) >= 20:
-            joke2.rating += 1
-            joke1.rating -= 1
-        elif (joke2.rating - joke1.rating) >= 10:
-            joke2.rating += 2
-            joke1.rating -= 2
-        elif (joke2.rating - joke1.rating) >= 0:
-            joke2.rating += 3
-            joke1.rating -= 3
-        elif (joke2.rating - joke1.rating) >= -10:
-            joke2.rating += 4
-            joke1.rating -= 4
-        else:
-            joke2.rating += 5
-            joke1.rating -= 5
-        joke1.save()
-        joke2.save()
-        print "right"
-
-
-    return render(request, 'JokeRater/index.html', context_dict)
+        previous['joke1'] = joke1
+        previous['joke2']= joke2
+        return render(request, 'JokeRater/index.html', context_dict)
 
 
 def register_profile(request):
@@ -109,7 +112,7 @@ def register_profile(request):
     return render(request, 'JokeRater/profile_registration.html',
                   {'profile_form': profile_form, 'completed': completed})
 
-
+        
 @login_required
 def profile(request):
     user = request.user
@@ -140,64 +143,77 @@ def profile(request):
 
 
 def category(request, category_name_slug):
-    context_dict = {}
-    JokeCategory = Category.objects.get(slug=category_name_slug)
-    context_dict['category'] = JokeCategory
-    joke = Joke.objects.filter(category=JokeCategory)
-    size = len(joke)
-    random1 = random.randint(0, size - 1)
+        if request.POST.get('select') == 'left':
+                jokeA = previous['joke1']
+                jokeB = previous['joke2']
+                if (jokeA.rating - jokeB.rating) >= 20:
+                    jokeA.rating += 1
+                    jokeB.rating -= 1
+                elif (jokeA.rating - jokeB.rating) >= 10:
+                    jokeA.rating += 2
+                    jokeB.rating -= 2
+                elif (jokeA.rating - jokeB.rating) >= 0:
+                    jokeA.rating += 3
+                    jokeB.rating -= 3
+                elif (jokeA.rating - jokeB.rating) >= -10:
+                    jokeA.rating += 4
+                    jokeB.rating -= 4
+                else:
+                    jokeA.rating += 5
+                    jokeB.rating -= 5
+                jokeA.save()
+                jokeB.save()
+                print "left"
+        elif request.POST.get('select') == 'right':
+                jokeA = previous['joke1']
+                jokeB = previous['joke2']
+                if (jokeB.rating - jokeA.rating) >= 10:
+                    jokeB.rating += 1
+                    jokeA.rating -= 1
+                elif (jokeB.rating - jokeA.rating) >= 0:
+                    jokeB.rating += 2
+                    jokeA.rating -= 2
+                elif (jokeB.rating - jokeA.rating) >= -10:
+                    jokeB.rating += 3
+                    jokeA.rating -= 3
+                elif (jokeB.rating - jokeA.rating) >= -20:
+                    jokeB.rating += 4
+                    jokeA.rating -= 4
+                else:
+                    jokeB.rating += 5
+                    jokeA.rating -= 5
+                jokeA.save()
+                jokeB.save()
+                print "right"
+                
+        context_dict = {}
+        JokeCategory = Category.objects.get(slug=category_name_slug)
+        context_dict['category'] = JokeCategory
+        jokes = Joke.objects.filter(category=JokeCategory)
+        size = len(jokes)
+        random1 = random.randint(0, size - 1)
 
-    while True:
-        random2 = random.randint(0, size - 1)
-        if random1 != random2:
-            break
+        while True:
+                random2 = random.randint(0, size - 1)
+                if random1 != random2:
+                        break
 
-    joke1 = joke[random1]
-    joke2 = joke[random2]
-    context_dict['joke1'] = joke1
-    context_dict['joke2'] = joke2
+        joke1 = jokes[random1]
+        joke2 = jokes[random2]
+        context_dict['joke1'] = joke1
+        context_dict['joke2'] = joke2
+        orderedJokes = Joke.objects.order_by('-rating')
+        orderSize = len(orderedJokes)
+        for i in range(0,orderSize):
+                if orderedJokes[i] == joke1:
+                        context_dict['joke1_position'] = i+1
+                elif orderedJokes[i] == joke2:
+                        context_dict['joke2_position'] = i+1
+                i = i + 1
 
-    if request.POST.get('select') == 'left':
-        if (joke1.rating - joke2.rating) >= 20:
-            joke1.rating += 1
-            joke2.rating -= 1
-        elif (joke1.rating - joke2.rating) >= 10:
-            joke1.rating += 2
-            joke2.rating -= 2
-        elif (joke1.rating - joke2.rating) >= 0:
-            joke1.rating += 3
-            joke2.rating -= 3
-        elif (joke1.rating - joke2.rating) >= -10:
-            joke1.rating += 4
-            joke2.rating -= 4
-        else:
-            joke1.rating += 5
-            joke2.rating -= 5
-        joke1.save()
-        joke2.save()
-        print "left"
-
-    elif request.POST.get('select') == 'right':
-        if (joke2.rating - joke1.rating) >= 20:
-            joke2.rating += 1
-            joke1.rating -= 1
-        elif (joke2.rating - joke1.rating) >= 10:
-            joke2.rating += 2
-            joke1.rating -= 2
-        elif (joke2.rating - joke1.rating) >= 0:
-            joke2.rating += 3
-            joke1.rating -= 3
-        elif (joke2.rating - joke1.rating) >= -10:
-            joke2.rating += 4
-            joke1.rating -= 4
-        else:
-            joke2.rating += 5
-            joke1.rating -= 5
-        joke1.save()
-        joke2.save()
-        print "right"
-
-    return render(request, 'JokeRater/category.html', context_dict)
+        previous['joke1'] = joke1
+        previous['joke2']= joke2
+        return render(request, 'JokeRater/category.html', context_dict)
 
 # def about(request):
 # context_dict = {}
