@@ -84,6 +84,33 @@ def index(request):
         previous['joke2']= joke2
         return render(request, 'JokeRater/index.html', context_dict)
 
+def joke(request, category_name_slug):
+        context_dict = {}
+        JokeCategory = Category.objects.get(slug=category_name_slug)
+        context_dict['category'] = JokeCategory
+        jokes = Joke.objects.filter(category=JokeCategory)
+        size = len(jokes)
+        try:
+                p = previous['joke']
+        except:
+                p = -1
+        while True:
+                r = random.randint(0, size - 1)
+                if r != p:
+                    break
+                
+        joke = jokes[r]
+        previous['joke'] = r
+        context_dict['joke'] = joke
+
+        orderedJokes = Joke.objects.all()
+        orderedSize = len(orderedJokes)
+        for i in range(0,orderedSize):
+                if orderedJokes[i] == joke:
+                        context_dict['joke_position'] = i+1
+                i = i + 1
+     
+        return render(request, 'JokeRater/joke.html', context_dict)
 
 def register_profile(request):
     completed = False

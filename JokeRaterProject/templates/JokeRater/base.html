@@ -91,6 +91,11 @@
 		padding-left: 0px;
 		padding-right: 0px;
 	}
+	
+	.jokeButton{
+		margin-top: 10px;
+		margin-left: 20px;
+		width: 70%;}
 		
 	</style>
 	
@@ -132,7 +137,7 @@
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Compare <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										 {% block category_dropdown1 %}
-											{% get_category_list %}
+											{% get_compare_list %}
 										{% endblock %}
 									</ul>
 								</li>
@@ -140,7 +145,7 @@
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View <span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										{% block category_dropdown2 %}
-											{% get_category_list %}
+											{% get_joke_list %}
 										{% endblock %}
 									</ul>
 								</li>
