@@ -1,5 +1,8 @@
 from django.test import TestCase
 from JokeRaterApp.models import Joke
+from django.contrib.auth.models import User
+from datetime import date, timedelta
+import datetime
 
 
 class JokeRaterTestCase(TestCase):
