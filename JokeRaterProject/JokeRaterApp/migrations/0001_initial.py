@@ -30,6 +30,7 @@ class Migration(migrations.Migration):
                 ('content', models.CharField(max_length=400)),
                 ('punchline', models.CharField(max_length=100)),
                 ('rating', models.IntegerField(default=0)),
+                ('datePosted', models.DateField()),
                 ('category', models.ForeignKey(to='JokeRaterApp.Category')),
                 ('postingUser', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],

@@ -1,24 +1,16 @@
-{% for joke in first %}
-<div class="sideBarText"> 1. {{joke.content}} </div>
-<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
+<script>
+	var i = 1;
+</script>
+
+{% for joke in overall %}
+	<div class="sideBarText"> 
+		<script>
+			document.write(i + ". ");
+			i++;
+		</script> 
+		{{joke.content}} 
+	</div>
+	<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
+
 {% endfor %}
 
-{% for joke in second %}
-<div class="sideBarText"> 2. {{joke.content}} </div>
-<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
-{% endfor %}
-
-{% for joke in third %}
-<div class="sideBarText"> 3. {{joke.content}} </div>
-<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
-{% endfor %}
-
-{% for joke in fourth %}
-<div class="sideBarText"> 4. {{joke.content}} </div>
-<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
-{% endfor %}
-
-{% for joke in fifth %}
-<div class="sideBarText"> 5. {{joke.content}} </div>
-<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
-{% endfor %}

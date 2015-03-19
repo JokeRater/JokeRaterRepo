@@ -6,6 +6,7 @@ django.setup()
 
 from JokeRaterApp.models import Category, Joke
 from django.contrib.auth.models import User
+from datetime import date, timedelta
 import datetime
 
 
@@ -26,35 +27,35 @@ def populate():
     chris.save
     
 	
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6",postingUser=chris)
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10",postingUser=chris)
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9",postingUser=chris)
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4",postingUser=chris)
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12",postingUser=chris)
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="0",postingUser=chris)
+    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="0",postingUser=chris)
+    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating="0",postingUser=chris)
+    joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="0",postingUser=chris)
+    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="0",postingUser=chris)
+    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=pun,content="I wondered why the baseball was getting bigger.",punchline="Then it hit me.",rating="0",postingUser=chris)
+    joke = Joke(category=pun,content="I wondered why the baseball was getting bigger.",punchline="Then it hit me.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=pun,content="I couldn't quite remember how to throw a boomerang,",punchline="but eventually it came back to me.",rating="0",postingUser=chris)
+    joke = Joke(category=pun,content="I couldn't quite remember how to throw a boomerang,",punchline="but eventually it came back to me.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
     joke.save()
-    joke = Joke(category=pun,content="Police were called to a daycare.",punchline="A three-year-old was resisting a rest.",rating="0",postingUser=chris)
+    joke = Joke(category=pun,content="Police were called to a daycare.",punchline="A three-year-old was resisting a rest.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=6))
     joke.save()
-    joke = Joke(category=pun,content="Don't trust people that do acupuncture",punchline="they're back stabbers.",rating="0",postingUser=chris)
+    joke = Joke(category=pun,content="Don't trust people that do acupuncture",punchline="they're back stabbers.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=7))
     joke.save()
-    joke = Joke(category=pun,content="I used to have a fear of hurdles,",punchline="but I got over it.",rating="0",postingUser=chris)
+    joke = Joke(category=pun,content="I used to have a fear of hurdles,",punchline="but I got over it.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=8))
     joke.save()
 	
 

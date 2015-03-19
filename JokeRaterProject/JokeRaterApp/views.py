@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
-from datetime import datetime
+from datetime import date, timedelta
 import random
 
 previous = {}
@@ -241,6 +241,17 @@ def category(request, category_name_slug):
         previous['joke1'] = joke1
         previous['joke2']= joke2
         return render(request, 'JokeRater/category.html', context_dict)
+		
+def overall(request):
+        j = Joke.objects.order_by('-rating')[:15]
+        return render(request, 'JokeRater/topOverall.html', {'overall':j})
+
+def weekly(request):
+        start_date = datetime.datetime.now().date() - timedelta(days=7)
+        end_date = datetime.datetime.now().date()
+        j = Joke.objects.filter(datePosted__range=(start_date, end_date)).order_by('-rating')[:15]
+        return render(request, 'JokeRater/topWeekly.html', {'weekly':j})
+
 
 # def about(request):
 # context_dict = {}
@@ -256,8 +267,3 @@ def category(request, category_name_slug):
 #def add_joke(request):
 #    context_dict = {}
 #    return render(request, 'JokeRater/add_joke.html', context_dict)
-
-
-
-
-

@@ -15,19 +15,16 @@
 		
 			<h2 class="form-signin-heading">Enter a joke:</h2>
 			</br>
-			<<form action="{% url 'profile' %}" method="post">
+			<form action="{% url 'profile' %}" method="post">
+				{% csrf_token %}
 				<label for="comment">Content:</label>
 				<textarea class="form-control" rows="4" id="content"></textarea>
 				</br>
 				<label for="comment">Punchline:</label>
 				<textarea class="form-control" rows="3" id="punchline"></textarea>
-			</div>
-			<form id="joke_form" method="post" action="/JokeRater/profile/" enctype="multipart/form-data">
-				{% csrf_token %}
 				</br>
 				<button class="btn btn-primary"  type="submit" name="submit">Submit</button>
 			</form>
-			
 		</div>
 	</div>
 </div>

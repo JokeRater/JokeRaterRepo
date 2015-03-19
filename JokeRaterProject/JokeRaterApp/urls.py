@@ -8,5 +8,7 @@ urlpatterns = patterns('',
 	url(r'^profile/', views.profile, name='profile'),
         url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
         url(r'^joke/(?P<category_name_slug>[\w\-]+)/$', views.joke, name='joke'),
+        url(r'^topOverall/', views.overall, name='topOverall'),
+        url(r'^topWeekly/', views.weekly, name='topWeekly'),
         )
 		

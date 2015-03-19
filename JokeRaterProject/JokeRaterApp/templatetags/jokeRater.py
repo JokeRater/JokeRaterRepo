@@ -13,5 +13,4 @@ def get_joke_list():
 	
 @register.inclusion_tag('JokeRater/overall.html')
 def get_top_overall():
-	j = Joke.objects.order_by('-rating')[:5]
-	return {'first':j[:1], 'second':j[1:2], 'third':j[2:3], 'fourth':j[3:4], 'fifth':j[4:5]}
+    return {'overall':Joke.objects.order_by('-rating')[:5]}

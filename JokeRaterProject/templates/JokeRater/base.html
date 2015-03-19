@@ -100,7 +100,24 @@
 		margin-top: 10px;
 		margin-left: 20px;
 		width: 70%;}
-		
+	
+	.punchlinePadding{
+		padding-left: 50px;
+	}
+	
+	.topListUser{
+		font-size: 14px;
+		text-align: right;
+	}
+	
+	.lightBlueBackground{
+		background-color: #ACE3FF;
+		border-width: 2px;
+		border-color: #000000;
+	}
+	.text20px{
+		font-size: 20px;
+	}
 	</style>
 	
   
@@ -181,23 +198,16 @@
 						{% block overall_list %}
 							{% get_top_overall %}
 						{% endblock %}
-						<button type="button" class="btn btn-primary centreButton">See More</button>
+						<a class="btn btn-primary centreButton" href="{% url 'topOverall' %}" role="button">See More</a>
 					</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">Daily Top Rated Jokes</div>
 					<div class="panel-body">
-						<div class="sideBarText"> 1. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234</div>
-						<div class="sideBarText"> 2. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall"> SuperUser1234  </div>
-						<div class="sideBarText"> 3. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234  </div>
-						<div class="sideBarText"> 4. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234 </div> 
-						<div class="sideBarText"> 5. Why did the chicken cross the road</div>
-						<div class="sideBarTextSmall">SuperUser1234 </div>
-						<button type="button" class="btn btn-primary centreButton">See More</button>
+						{% block overall_list1 %}
+							{% get_top_overall %}
+						{% endblock %}
+						<a class="btn btn-primary centreButton" href="{% url 'topWeekly' %}" role="button">See More</a>
 					</div>
 				</div>
 			</div>

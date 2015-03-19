@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import datetime
 
 class Category(models.Model):
         name = models.CharField(max_length=128, unique=True)
@@ -21,6 +22,7 @@ class Joke(models.Model):
 	punchline = models.CharField(max_length=100)
 	rating = models.IntegerField(default=0)
 	postingUser = models.ForeignKey(User)
+	datePosted = models.DateField()
         def __unicode__(self):
                 return self.content
 
