@@ -1,12 +1,18 @@
 {% extends 'JokeRater/base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}Profile{% endblock %}
 
 {% block body_block %}
 <div class="container">
 	<div class="row topMargin">
 		<div class="col-md-3 ">
+            {% if profile.picture %}
 			<img height="200" class="img-rounded profilePicture" src="{{profile.picture.url}}" alt="Profile Picture" />
+            {% else %}
+            <img src="{% static "images/profile_default.png" %}" alt="Default Picture" />
+            {% endif %}
 			<div class="usernameText">
 				{{user.username}}
 			</div>

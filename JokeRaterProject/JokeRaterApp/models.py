@@ -3,36 +3,40 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 import datetime
 
+
 class Category(models.Model):
-        name = models.CharField(max_length=128, unique=True)
-		
-        slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=128, unique=True)
 
-        def save(self, *args, **kwargs):
-                self.slug = slugify(self.name)
-                super(Category, self).save(*args, **kwargs)
+    slug = models.SlugField(unique=True)
 
-        def __unicode__(self):
-                return self.name
-        
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Joke(models.Model):
-        category = models.ForeignKey(Category)
-		content = models.CharField(max_length=400)
-		punchline = models.CharField(max_length=100)
-		rating = models.IntegerField(default=0)
-		postingUser = models.ForeignKey(User)
-		datePosted = models.DateField()
-        def __unicode__(self):
-                return self.content
+    category = models.ForeignKey(Category)
+    content = models.CharField(max_length=400)
+    punchline = models.CharField(max_length=100)
+    rating = models.IntegerField(default=0)
+    postingUser = models.ForeignKey(User)
+    datePosted = models.DateField()
+
+
+def __unicode__(self):
+    return self.content
+
 
 class UserProfile(models.Model):
-	user = models.OneToOneField(User)
+    user = models.OneToOneField(User)
 
-	location = models.CharField(max_length=50, unique=True)
-	picture = models.ImageField(upload_to='profile_images', blank=True)
+    location = models.CharField(max_length=50, unique=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
 
-	def __unicode__(self):
-		return self.user.username
+    def __unicode__(self):
+        return self.user.username
 
  
