@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import datetime
 from django.conf import settings
 
 
@@ -30,9 +31,9 @@ class Migration(migrations.Migration):
                 ('content', models.CharField(max_length=400)),
                 ('punchline', models.CharField(max_length=100)),
                 ('rating', models.IntegerField(default=0)),
-                ('datePosted', models.DateField()),
+                ('datePosted', models.DateField(default=datetime.date(2015, 3, 21))),
                 ('category', models.ForeignKey(to='JokeRaterApp.Category')),
-                ('postingUser', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('postingUser', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
             },

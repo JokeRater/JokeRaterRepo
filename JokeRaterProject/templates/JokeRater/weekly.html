@@ -1,0 +1,15 @@
+<script>
+	var i = 1;
+</script>
+
+{% for joke in weekly %}
+	<div class="sideBarText"> 
+		<script>
+			document.write(i + ". ");
+			i++;
+		</script> 
+		{{joke.content}} 
+	</div>
+	<div class="sideBarTextSmall"> {{joke.postingUser}}</div>
+
+{% endfor %}

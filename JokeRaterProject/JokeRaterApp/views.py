@@ -105,7 +105,7 @@ def joke(request, category_name_slug):
     previous['joke'] = r
     context_dict['joke'] = joke
 
-    orderedJokes = Joke.objects.all()
+    orderedJokes = Joke.objects.order_by('-rating')
     orderedSize = len(orderedJokes)
     for i in range(0, orderedSize):
         if orderedJokes[i] == joke:
@@ -147,30 +147,36 @@ def register_profile(request):
 def profile(request):
     user = request.user
     profile = UserProfile.objects.get(user=user)
-    context_dict = {}
-    completed = False
-
     if request.method == 'POST':
         joke_form = JokeForm(request.POST)
         if joke_form.is_valid():
-            joke = joke_form.save(commit=False)
-            joke.rating = 0
-            category = Category.objects.all()
-            category = category[0]
-            joke.category = category
-            joke.save()
-            completed = True
+            joke = joke_form.save(commit="False")
+            joke.postingUser = user
+            print joke.content
+            print joke.postingUser
+            joke.datePosted = datetime.datetime.now().date()
+            joke_form.save(commit="True")
         else:
             print joke_form.errors
+        return HttpResponseRedirect('/JokeRater/profile')
     else:
-        joke_form = JokeForm(request.GET)
+        joke_form = JokeForm()
 
+    orderedJokes = Joke.objects.order_by('-rating')
+    ranks = []
+    count = 1
+    for joke in orderedJokes:
+        if joke.postingUser == user:
+            ranks.append(count)
+        count = count + 1
+
+    context_dict = {}
     context_dict['user'] = user
     context_dict['profile'] = profile
     context_dict['joke_form'] = joke_form
-    context_dict['completed'] = completed
+    context_dict['uploaded_jokes'] = Joke.objects.order_by('-rating').filter(postingUser=user)
+    context_dict['ranks'] = ranks
     return render(request, 'JokeRater/profile.html', context_dict)
-
 
 def category(request, category_name_slug):
     if request.POST.get('select') == 'left':
@@ -247,7 +253,7 @@ def category(request, category_name_slug):
 
 
 def overall(request):
-    j = Joke.objects.order_by('-rating')[:15]
+    j = Joke.objects.order_by('-rating')[:20]
     return render(request, 'JokeRater/topOverall.html', {'overall': j})
 
 

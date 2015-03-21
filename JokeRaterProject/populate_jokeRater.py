@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JokeRaterProject.settings')
 import django
 django.setup()
 
-from JokeRaterApp.models import Category, Joke
+from JokeRaterApp.models import Category, Joke, UserProfile
 from django.contrib.auth.models import User
 from datetime import date, timedelta
 import datetime
@@ -25,6 +25,8 @@ def populate():
     chris.date_joined=datetime.datetime.today()
     chris.last_login=datetime.datetime.today()
     chris.save
+    chrisProfile = UserProfile(user=chris,location="Glasgow")
+    chrisProfile.save    
     
 	
     joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6",postingUser=chris,datePosted=datetime.datetime.now().date())
@@ -131,5 +133,5 @@ def populate():
     
 # Start execution here!
 if __name__ == '__main__':
-    print "Starting Rango population script..."
+    print "Starting Joke Rater population script..."
     populate()

@@ -15,23 +15,71 @@
             {% endif %}
 			<div class="usernameText">
 				{{user.username}}
+				<div class = "text16px">{{user.email}}</div>
+				</br>
 			</div>
 		</div>
 		<div class="col-md-4">
-		
-			<h2 class="form-signin-heading">Enter a joke:</h2>
-			</br>
-			<form action="{% url 'profile' %}" method="post">
+			<form id="joke_form" method="post" action="{% url 'profile' %}">
+			
+				<h2 class="form-signin-heading">Enter a joke:</h2>
+				</br>
 				{% csrf_token %}
-				<label for="comment">Content:</label>
-				<textarea class="form-control" rows="4" id="content"></textarea>
-				</br>
-				<label for="comment">Punchline:</label>
-				<textarea class="form-control" rows="3" id="punchline"></textarea>
-				</br>
+				{% for hidden in joke_form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+
+				{% for field in joke_form.visible_fields %}
+					{{ field.errors }}
+					{{ field.help_text }}
+					{{ field }}
+					</br>
+					</br>
+				{% endfor %}
 				<button class="btn btn-primary"  type="submit" name="submit">Submit</button>
-			</form>
+				
+			</form>	
 		</div>
 	</div>
+	{% if uploaded_jokes %}
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-7">
+				<div class="panel panel-default">
+					<div class="panel-heading">My Uploaded Jokes</div>
+					<div class="panel-body">
+						<script>
+							i = 1;
+							j = 0;
+						</script>
+						<ul class="list-group">		
+							{% for joke in uploaded_jokes %}
+								<li class="list-group-item">
+									<div class="text20px"> 
+										<script>
+											document.write(i + ". ");
+											i++;
+										</script> 
+										{{joke.content}}
+										</br>
+										<div class="punchlinePadding">{{joke.punchline}}</div>
+									</div>
+									<div class="topListUser"> Date Posted: {{joke.datePosted}}</div>
+									<div class="topListUser"> Category: {{joke.category}}</div>
+									<div class="topListUser">	
+										<script>
+											ranks = {{ ranks }}
+											document.write("Rank: " + ranks[j]);
+											j++;
+										</script> 
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 </div>
 {% endblock %}

@@ -118,6 +118,9 @@
 	.text20px{
 		font-size: 20px;
 	}
+	.text16px{
+		font-size: 16px;
+	}
 	</style>
 	
   
@@ -172,9 +175,9 @@
 								</li>
 							</ul>
 							
-							<ul class="nav navbar-nav navbar-right">
+							<ul class="nav navbar-nav navbar-right text20px">
 								{% if user.is_authenticated %}
-									<li><a href="{% url 'profile' %}">Profile</a></li>
+									<li><a href="{% url 'profile' %}">View Profile(Upload)</a></li>
 									<li><a href="{% url 'auth_logout' %}?next=/JokeRater/">Log Out</a></li>
 								{% else %}
 									<li><a href="{% url 'auth_login' %}">Login</a></li>
@@ -202,10 +205,10 @@
 					</div>
 				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading">Daily Top Rated Jokes</div>
+					<div class="panel-heading">Weekly Top Rated Jokes</div>
 					<div class="panel-body">
 						{% block overall_list1 %}
-							{% get_top_overall %}
+							{% get_top_weekly %}
 						{% endblock %}
 						<a class="btn btn-primary centreButton" href="{% url 'topWeekly' %}" role="button">See More</a>
 					</div>
