@@ -18,11 +18,11 @@ class Category(models.Model):
 
 class Joke(models.Model):
         category = models.ForeignKey(Category)
-		content = models.CharField(max_length=400)
-		punchline = models.CharField(max_length=100)
-		rating = models.IntegerField(default=0)
-		postingUser = models.ForeignKey(User)
-		datePosted = models.DateField()
+	content = models.CharField(max_length=400)
+	punchline = models.CharField(max_length=100)
+	rating = models.IntegerField(default=0)
+	postingUser = models.ForeignKey(User)
+	datePosted = models.DateField()
         def __unicode__(self):
                 return self.content
 
