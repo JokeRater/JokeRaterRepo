@@ -24,6 +24,8 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'email', 'password')
 
 class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('location', 'picture')
+        location = forms.CharField(max_length=50,help_text="Please enter your location:")
+        picture = forms.ImageField(help_text="Please upload a profile picture:")
+        class Meta:
+                model = UserProfile
+                fields = ('location', 'picture')

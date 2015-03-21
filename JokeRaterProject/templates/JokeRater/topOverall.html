@@ -11,31 +11,32 @@
 				var i = 1;
 			</script>
 
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title"><h1>Overall Top Rated Jokes</h1></h3>
+			<div class="panel panel-default">
+				<div class="panel-heading">Overall Top Rated Jokes</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						{% for joke in overall %}
+							<li class="list-group-item">
+								<div class="text20px"> 
+									<script>
+										document.write(i + ". ");
+										i++;
+									</script> 
+										{{joke.content}}
+										</br>
+										<div class="punchlinePadding">{{joke.punchline}}</div>
+									</div>
+								<div class="topListUser"> User: {{joke.postingUser}}</div>
+								<div class="topListUser"> Category: {{joke.category}}</div>
+							</li>
+						{% endfor %}
+					</ul>
 				</div>
 			</div>
-			<ul class="list-group">
-				{% for joke in overall %}
-					<li class="list-group-item lightBlueBackground">
-						<div class="text20px"> 
-							<script>
-								document.write(i + ". ");
-								i++;
-							</script> 
-								{{joke.content}}
-								</br>
-								<div class="punchlinePadding">{{joke.punchline}}</div>
-							</div>
-						<div class="topListUser"> User: {{joke.postingUser}}</div>
-						<div class="topListUser"> Category: {{joke.category}}</div>
-					</li>
-				{% endfor %}
-				</li>
-			</ul>
 		</div>
 	</div>
 </div>
 
 {% endblock %}
+
+				
