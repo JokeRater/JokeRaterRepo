@@ -1,8 +1,11 @@
 from django.contrib import admin
 from JokeRaterApp.models import *
 
-# class PageAdmin(admin.ModelAdmin):
-    # list_display = ('title', 'category', 'url')
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name')
+
+class JokeAdmin(admin.ModelAdmin):
+    list_display = ('content','rating','datePosted','reportFlag')
 
 # class CategoryAdmin(admin.ModelAdmin):
     # prepopulated_fields = {'slug':('name',)}

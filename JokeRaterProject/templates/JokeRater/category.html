@@ -12,6 +12,9 @@
     	<div class="container">
 		<div class="row">
 			<div class="col-md-9" >
+				{% if report %}
+					<div class="reportText">Successfully reported - joke will be reviewed</div>
+				{% endif %}
 				<h2> Choose your favourite: </h2>
 			</div>
 		</div>
@@ -68,9 +71,11 @@
 			<div class="row">
 				<div class="col-md-4">
 					<button type="submit" value="left" class="btn btn-primary chooseButtonLeft" name="select">Select</button>
+					<button type="submit" value="reportLeft" class="btn btn-danger chooseButtonLeft" name="select">Report</button>
 				</div>
 				<div class="col-md-4">
 					<button type="submit" value="right" class="btn btn-primary chooseButtonRight" name="select">Select</button>
+					<button type="submit" value="reportRight" class="btn btn-danger chooseButtonRight" name="select">Report</button>
 				</div>
 			</div>
 		</form>

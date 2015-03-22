@@ -18,6 +18,8 @@ previous = {}
 
 
 def index(request):
+    report = False
+    
     # Try to obtain previous jokes
     try:
         jokeA = previous['joke1']
@@ -65,6 +67,17 @@ def index(request):
         jokeA.save()
         jokeB.save()
 
+    # Flags a joke if it is reported
+    elif request.POST.get('select') == 'reportLeft':
+        jokeA.reportFlag = True
+        jokeA.save()
+        report = True
+    elif request.POST.get('select') == 'reportRight':
+        jokeB.reportFlag = True
+        jokeB.save()
+        report = True
+
+
     # Get the jokes ordered by rating and the number of jokes   
     jokes = Joke.objects.order_by('-rating')
     size = len(jokes)
@@ -100,10 +113,13 @@ def index(request):
     previous['joke1'] = joke1
     previous['joke2'] = joke2
     
+    context_dict['report'] = report
     return render(request, 'JokeRater/index.html', context_dict)
 
 
 def joke(request, category_name_slug):
+    report = False
+    
     # Try to obtain the previous joke
     try:
         jokeA = previous['joke']
@@ -136,6 +152,13 @@ def joke(request, category_name_slug):
             context_dict['joke_position'] = i + 1
         i = i + 1
 
+    # Flags a joke if it is reported
+    if request.POST.get('select') == 'report':
+        jokeA.reportFlag = True
+        jokeA.save()
+        report = True
+
+    context_dict['report'] = report
     return render(request, 'JokeRater/joke.html', context_dict)
 
 @login_required
@@ -182,6 +205,7 @@ def profile(request):
             joke = joke_form.save(commit="False")
             joke.postingUser = user
             joke.datePosted = datetime.datetime.now().date()
+            joke.reportFlag = False
             joke_form.save(commit="True")
         else:
             print joke_form.errors
@@ -208,6 +232,8 @@ def profile(request):
     return render(request, 'JokeRater/profile.html', context_dict)
 
 def category(request, category_name_slug):
+    report = False
+    
    # Try to obtain previous jokes
     try:
         jokeA = previous['joke1']
@@ -254,6 +280,16 @@ def category(request, category_name_slug):
             jokeA.rating -= 5
         jokeA.save()
         jokeB.save()
+        
+    # Flags a joke if it is reported
+    elif request.POST.get('select') == 'reportLeft':
+        jokeA.reportFlag = True
+        jokeA.save()
+        report = True
+    elif request.POST.get('select') == 'reportRight':
+        jokeB.reportFlag = True
+        jokeB.save()
+        report = True
 
     # Get the name of the category selected and pass it to the template
     JokeCategory = Category.objects.get(slug=category_name_slug)
@@ -295,6 +331,8 @@ def category(request, category_name_slug):
     # Record the random jokes selected this time as the previous jokes
     previous['joke1'] = joke1
     previous['joke2'] = joke2
+
+    context_dict['report'] = report
     return render(request, 'JokeRater/category.html', context_dict)
 
 def overall(request):

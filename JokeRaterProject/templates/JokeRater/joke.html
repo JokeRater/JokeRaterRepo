@@ -8,6 +8,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-9 topMargin" >
+				{% if report %}
+					<div class="reportText">Successfully reported - joke will be reviewed</div>
+				{% endif %}
 				<h2> Random Joke: </h2>
 			</div>
 		</div>
@@ -38,14 +41,17 @@
 			</div>	
 			<div class="col-md-2 compareJoke"></div>
 		</div>
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-4">
-				<a class="btn btn-primary jokeButton" href="{% url 'joke'  category.slug %}" role="button">Next</a>
+		<form id="form" method="post" action="{% url 'joke'  category.slug %}">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-4">
+					<button type="submit" value="next" class="btn btn-primary jokeButton" name="select">Next</button>
+					<button type="submit" value="report" class="btn btn-danger jokeButton" name="select">Report</button>
+				</div>
+				<div class="col-md-2"></div>
 			</div>
-			<div class="col-md-2"></div>
-		</div>
-	
+		</form>
 	</div>
 
 {% endblock %}

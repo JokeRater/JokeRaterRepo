@@ -22,6 +22,7 @@ class Joke(models.Model):
     rating = models.IntegerField(default=0)
     postingUser = models.ForeignKey(User,null=True)
     datePosted = models.DateField(default=datetime.datetime.now().date())
+    reportFlag = models.BooleanField(default=False)
 	
     def __unicode__(self):
         return self.content
