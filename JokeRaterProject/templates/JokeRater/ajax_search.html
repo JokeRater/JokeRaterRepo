@@ -1,0 +1,34 @@
+{% extends 'JokeRater/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Search{% endblock %}
+
+{% block body_block %}
+
+{% if joke.count > 0 %}
+
+{% for j in joke %}
+	<li class="list-group-item">
+		<div class="text20px"> 
+			<script>
+				document.write(i + ". ");
+				i++;
+			</script> 
+				{{j.content}}
+				</br>
+				<div class="punchlinePadding">{{j.punchline}}</div>
+			</div>
+		<div class="topListUser"> User: {{j.postingUser}}</div>
+		<div class="topListUser"> Category: {{j.category}}</div>
+	</li>
+
+{% endfor %}
+
+{% else %}
+
+	<li>Nothing to show</li>
+
+{% endif %}
+
+{% endblock %}

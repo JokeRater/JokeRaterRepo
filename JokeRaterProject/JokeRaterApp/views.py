@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from models import *
 from forms import *
 
+from django.core.context_processors import csrf
+
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -129,6 +131,7 @@ def joke(request, category_name_slug):
     # Get the name of the category selected and pass it to the template
     JokeCategory = Category.objects.get(slug=category_name_slug)
     context_dict = {}
+    context_dict.update(csrf(request))
     context_dict['category'] = JokeCategory
 
     # Get the jokes in that category and the number there is
@@ -347,3 +350,11 @@ def weekly(request):
     end_date = datetime.datetime.now().date()
     j = Joke.objects.filter(datePosted__range=(start_date, end_date)).order_by('-rating')[:15]
     return render(request, 'JokeRater/topWeekly.html', {'weekly': j})
+
+def search(request):
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+    j = Joke.objects.filter(content__contains=search_text)
+    return render(request,'JokeRater/ajax_search.html',{'jokes':j})
