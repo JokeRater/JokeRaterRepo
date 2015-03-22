@@ -10,6 +10,7 @@
     
     <title>JokeRater - {% block title %}{% endblock %}</title>
 	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}JokeRater.css" />
 	
 
 	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
@@ -17,120 +18,23 @@
     <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 	
 	
-  </head>
-  {% load jokeRater %}
-  <style>
-	body{
-		padding-top:0px;
-		margin-top: 0px;
+	</head>
+	{% load jokeRater %}
+  
+	<style>
+		body{
+			padding-top:0px;
+			margin-top: 0px;
 		}
-		
-	.navSettings{
-		position: relative;
-		left: 100px;
-		font-size: 20px
+		.panelStyling{
+			border-width: 20px;
+			border-color: #1975FF;
+			min-height: 350px;
+			max-height: 350px;
+			margin-bottom: 0px;
 		}
-		
-	.blueText{
-		color: blue;
-		}
-		
-	.centreButton{
-		position: relative;
-		margin-left:80px;
-		width:40%;
-		}
-		
-	.chooseButtonLeft{
-		margin-top: 10px;
-		margin-left: 60px;
-		width: 70%;
-	}
-	.chooseButtonRight{
-		margin-top: 10px;
-		margin-left: 110px;
-		width: 70%;
-	}
-	
-	.sideBarText{
-		font-size: 16px;
-	}.sideBarText{
-		font-size: 16px;
-	}.sideBarTextSmall{
-		font-size: 12px;
-		padding-bottom: 10px;
-	}
-	
-	.compareJoke{
-		margin-left:20px;
-		margin-right:20px;
-		font-size:20px;
-	}	
-	.panelStyling{
-		border-width: 20px;
-		border-color: #1975FF;
-		min-height: 350px;
-		max-height: 350px;
-		margin-bottom: 0px;
-	}
-	
-	.profilePicture{
-		max-width: 250px;
-	}
-		
-	.topMargin{
-		margin-top: 50px;
-		margin-bottom: 10px;
-	}
-	
-	.usernameText{
-		margin-left: 10px;
-		font-size: 20px
-	}
-	
-	.indexText{
-		font-size: 14px;
-		margin-left: 0px;
-		margin-right: 0px;
-		padding-left: 0px;
-		padding-right: 0px;
-	}
-	
-	.jokeButton{
-		margin-top: 10px;
-		margin-left: 20px;
-		width: 70%;}
-	
-	.punchlinePadding{
-		padding-left: 50px;
-	}
-	
-	.topListUser{
-		font-size: 14px;
-		text-align: right;
-	}
-	
-	.lightBlueBackground{
-		background-color: #ACE3FF;
-		border-width: 2px;
-		border-color: #000000;
-	}
-	.text20px{
-		font-size: 20px;
-	}
-	.text16px{
-		font-size: 16px;
-	}
-	.leftMargin{
-		left-margin: 50px;
-	}
-	.reportText{
-		font-size: 20px;
-		color: red;
-	}
 	</style>
 	
-  
   <body>
 	<div class="container">
 	
