@@ -138,37 +138,31 @@ def joke(request, category_name_slug):
 
     return render(request, 'JokeRater/joke.html', context_dict)
 
-
+@login_required
 def register_profile(request):
     completed = False
-    if request.method == 'POST':
-        try:
-            profile = UserProfile.objects.get(user=request.user)
-            profile_form = UserProfileForm(request.POST, instance=profile)
-        except:
-            profile_form = UserProfileForm(request.POST)
-        if profile_form.is_valid():
-            print "hello"
-            if request.user.is_authenticated():
-                profile = profile_form.save(commit=False)
-                user = request.user
-                profile.user = user
-                try:
-                    profile.picture = request.FILES['picture']
-                except:
-                    pass
-                profile.save()
-                print "1"
-                completed = True
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+    except:
+        profile_form = UserProfileForm(request.POST)
+    if profile_form.is_valid():
+        if request.user.is_authenticated():
+            profile = profile_form.save(commit=False)
+            user = request.user
+            profile.user = user
+            try:
+                profile.picture = request.FILES['picture']
+            except:
+                pass
+            profile.save()
+            completed = True
         else:
-            print "bob"
             print profile_form.errors
         return index(request)
     else:
-        profile_form = UserProfileForm(request.GET)
-    return render(request, 'JokeRater/profile_registration.html',
-                  {'profile_form': profile_form, 'completed': completed})
-
+         profile_form = UserProfileForm(request.GET)
+    return render(request, 'JokeRater/profile_registration.html',{'profile_form': profile_form, 'completed': completed})
 
 @login_required
 def profile(request):

@@ -29,7 +29,7 @@ class Joke(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=50, unique=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __unicode__(self):

@@ -1,22 +1,30 @@
 {% extends 'JokeRater/base.html' %}
-
+ 
 {% load staticfiles %}
-
+ 
 {% block title %}User Profile{% endblock %}
-
+ 
 {% block body_block %}
-	<form id="joke_form" method="post" action="{% url 'register_profile' %}">		
-		<h2 class="form-signin-heading">User Profile:</h2>
-		</br>
-		{% csrf_token %}
+{% if completed %}
+    <strong>Thank you for completing the user profile</strong>
+	<a href="/JokeRater/">Return to the homepage.</a><br />
+{% else %}
+	<h2 class="form-signin-heading">User Profile</h2>
+	</br>
 
-		{% for field in profile_form %}
-			{{ field.errors }}
-			{{ field.help_text }}
-			{{ field }}
-			</br>
-			</br>
-		{% endfor %}
-		<button class="btn btn-primary"  type="submit" name="submit">Submit</button>		
-	</form>
+	<form id="profile_form" method="post" action="/JokeRater/register_profile/"
+			enctype="multipart/form-data">
+			{% csrf_token %}
+ 
+		<!-- Display each form. The as_p method wraps each element in a paragraph
+			 (<p>) element. This ensures each element appears on a new line,
+			 making everything look neater. -->
+		{{ profile_form.as_p }}
+
+		<!-- Provide a button to click to submit the form. -->
+		</br>
+		<button class="btn btn-primary"  type="submit" name="submit">Submit</button>
+
+{% endif %}
+
 {% endblock %}

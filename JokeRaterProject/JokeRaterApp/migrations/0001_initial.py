@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('content', models.CharField(max_length=400)),
                 ('punchline', models.CharField(max_length=100)),
                 ('rating', models.IntegerField(default=0)),
-                ('datePosted', models.DateField(default=datetime.date(2015, 3, 21))),
+                ('datePosted', models.DateField(default=datetime.date(2015, 3, 22))),
                 ('category', models.ForeignKey(to='JokeRaterApp.Category')),
                 ('postingUser', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('location', models.CharField(max_length=50)),
+                ('location', models.CharField(unique=True, max_length=50)),
                 ('picture', models.ImageField(upload_to=b'profile_images', blank=True)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],

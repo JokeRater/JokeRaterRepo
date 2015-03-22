@@ -18,14 +18,12 @@ class JokeForm(forms.ModelForm):
                 return self.cleaned_data
 		
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
-
+        password = forms.CharField(widget=forms.PasswordInput())
+        class Meta:
+                model = User
+                fields = ('username', 'email', 'password')
+ 
 class UserProfileForm(forms.ModelForm):
-        location = forms.CharField(max_length=50,help_text="Please enter your location:")
-        picture = forms.ImageField(help_text="Please upload a profile picture:")
         class Meta:
                 model = UserProfile
                 fields = ('location', 'picture')
