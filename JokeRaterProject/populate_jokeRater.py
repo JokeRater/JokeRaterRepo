@@ -8,6 +8,7 @@ from JokeRaterApp.models import Category, Joke, UserProfile
 from django.contrib.auth.models import User
 from datetime import date, timedelta
 import datetime
+import random
 
 
 def populate():
@@ -17,6 +18,8 @@ def populate():
     doctor.save()
     play = Category(name="Play-on-Words")
     play.save()
+    science = Category(name="Science")
+    science.save()
 
     chris = User.objects.create_user( "Chris", "chrisbrown365@btinternet.com", "chris" )
     chris.first_name="Chris"
@@ -26,111 +29,69 @@ def populate():
     chris.last_login=datetime.datetime.today()
     chris.save
     chrisProfile = UserProfile(user=chris,location="Glasgow")
-    chrisProfile.save    
-    
-	
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating="6",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor people keep ignoring me",punchline="Doctor: Next please",rating="10",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating="9",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating="4",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating="12",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=pun,content="I wondered why the baseball was getting bigger.",punchline="Then it hit me.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=pun,content="I couldn't quite remember how to throw a boomerang,",punchline="but eventually it came back to me.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date())
-    joke.save()
-    joke = Joke(category=pun,content="Police were called to a daycare.",punchline="A three-year-old was resisting a rest.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=6))
-    joke.save()
-    joke = Joke(category=pun,content="Don't trust people that do acupuncture",punchline="they're back stabbers.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=7))
-    joke.save()
-    joke = Joke(category=pun,content="I used to have a fear of hurdles,",punchline="but I got over it.",rating="0",postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=8))
-    joke.save()
-	
+    chrisProfile.save
 
-##    add_page(cat=python_cat,
-##        title="Official Python Tutorial",
-##        url="http://docs.python.org/2/tutorial/",
-##        views=100,)
-##
-##    add_page(cat=python_cat,
-##        title="How to Think like a Computer Scientist",
-##        url="http://www.greenteapress.com/thinkpython/",
-##        views=2,)
-##
-##    add_page(cat=python_cat,
-##        title="Learn Python in 10 Minutes",
-##        url="http://www.korokithakis.net/tutorials/python/",
-##        views=99,)
-##
-##    django_cat = add_cat("Django",64,32)
-##
-##    add_page(cat=django_cat,
-##        title="Official Django Tutorial",
-##        url="https://docs.djangoproject.com/en/1.5/intro/tutorial01/",
-##        views=36)
-##
-##    add_page(cat=django_cat,
-##        title="Django Rocks",
-##        url="http://www.djangorocks.com/",
-##        views=95)
-##
-##    add_page(cat=django_cat,
-##        title="How to Tango with Django",
-##        url="http://www.tangowithdjango.com/",
-##        views=4)
-##
-##    frame_cat = add_cat("Other Frameworks",32,16)
-##
-##    add_page(cat=frame_cat,
-##        title="Bottle",
-##        url="http://bottlepy.org/docs/dev/",
-##        views=79)
-##
-##    add_page(cat=frame_cat,
-##        title="Flask",
-##        url="http://flask.pocoo.org",
-##        views=23)
-##
-##    student_cat = add_cat("Chris Brown - 2077762b")
-##
-##    add_page(cat=student_cat,
-##             title="Github",
-##             url="https://github.com/2077762b",
-##             views=27)
-##
-##    add_page(cat=student_cat,
-##             title="PythonAnywhere",
-##             url="https://www.pythonanywhere.com/user/2077762b/consoles/",
-##            views=19)
-##
-##    # Print out what we have added to the user.
-##    for c in Category.objects.all():
-##        for p in Page.objects.filter(category=c):
-##            print "- {0} - {1}".format(str(c), str(p))
-##
-##def add_page(cat, title, url, views):
-##    p = Page.objects.get_or_create(category=cat, title=title, url=url, views=views)[0]
-##    return p
-##
-##def add_cat(name, views=0, likes=0):
-##    c = Category.objects.get_or_create(name=name, views=views, likes=likes)[0]
-##    return c
-##
-    
+    bob = User.objects.create_user( "Bob", "bob@gmail.com", "bob" )
+    bob.first_name="bob"
+    bob.is_superuser=True
+    bob.is_staff=True
+    bob.date_joined=datetime.datetime.today()
+    bob.last_login=datetime.datetime.today()
+    bob.save
+    bobProfile = UserProfile(user=bob,location="London")
+    bobProfile.save
+
+    Tim = User.objects.create_user( "Tim", "tim@gmail.com", "tim" )
+    Tim.first_name="tim"
+    Tim.is_superuser=True
+    Tim.is_staff=True
+    Tim.date_joined=datetime.datetime.today()
+    Tim.last_login=datetime.datetime.today()
+    Tim.save
+    TimProfile = UserProfile(user=Tim,location="Birmingham")
+    TimProfile.save
+
+
+
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I feel like a pair of curtains",punchline="Doctor: Pull yourself together",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm a bell?",punchline="Doctor: Take these and if it doesn't help give me a ring! ",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor I think I'm suffering from Deja Vu!",punchline="Doctor: Didn't I see you yesterday? ",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=doctor,content="Patient: Doctor, Doctor, how do I stop my nose from running?!",punchline="Doctor: Stick your foot out and trip it up! ",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=play,content="What happens to a frog's car when it breaks down?",punchline="It gets toad away. ",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=play,content="Why was six scared of seven? ",punchline="Because seven ate nine. ",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=play,content="What is the difference between snowmen and snowwomen",punchline="Snowballs. ",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=play,content="What do you call a bear with no teeth?",punchline="A gummy bear. ",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=play,content="I never wanted to believe that my Dad was stealing from his job as a road worker.",punchline="But when I got home, all the signs were there. ",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=pun,content="I wondered why the baseball was getting bigger.",punchline="Then it hit me.",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=pun,content="I couldn't quite remember how to throw a boomerang,",punchline="but eventually it came back to me.",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=pun,content="Police were called to a daycare.",punchline="A three-year-old was resisting a rest.",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=pun,content="Don't trust people that do acupuncture",punchline="they're back stabbers.",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=pun,content="I used to have a fear of hurdles,",punchline="but I got over it.",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=science,content="Anyone know any jokes about sodium? ",punchline="Na",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=science,content="I would tell you a chemistry joke...",punchline="...but all the good ones are gone",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=science,content="What do you call a clown who's in jail? ",punchline="A silicon",rating=random.randint(-20, 20),postingUser=Tim,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=science,content="Did you hear about the man who got cooled to absolute zero?",punchline="He's 0K now",rating=random.randint(-20, 20),postingUser=chris,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+    joke = Joke(category=science,content="Why did the acid go to the gym?",punchline="To become a buffer solution",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)))
+    joke.save()
+	
 # Start execution here!
 if __name__ == '__main__':
     print "Starting Joke Rater population script..."
