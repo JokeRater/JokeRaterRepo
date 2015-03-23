@@ -1,0 +1,12 @@
+{% if jokes.count > 0 %}
+
+{% for joke in jokes %}
+	<li>
+		<div class="text16px" {{joke.content}}</br>{{joke.punchline}}</div>
+	</li>
+{% endfor %}
+
+{% else %}
+
+<li>No results</li>
+{% endif %}

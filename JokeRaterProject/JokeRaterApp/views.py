@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.core.context_processors import csrf
 
 from models import *
 from forms import *
@@ -114,6 +115,7 @@ def index(request):
     previous['joke2'] = joke2
     
     context_dict['report'] = report
+    context_dict.update(csrf(request))
     return render(request, 'JokeRater/index.html', context_dict)
 
 
@@ -347,3 +349,13 @@ def weekly(request):
     end_date = datetime.datetime.now().date()
     j = Joke.objects.filter(datePosted__range=(start_date, end_date)).order_by('-rating')[:15]
     return render(request, 'JokeRater/topWeekly.html', {'weekly': j})
+
+def search(request):
+    if request.method == "POST":
+        search_text = request.POST['search_test']
+    else:
+        search_text = ''
+
+    jokes = Joke.objects.filter(content__contains=search_text)
+
+    return render_to_response('search.html', {'jokes':jokes})
