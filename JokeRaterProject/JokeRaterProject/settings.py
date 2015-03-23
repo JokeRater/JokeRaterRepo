@@ -35,7 +35,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['JokeRater.pythonanywhere.com']
 
 
 # Application definition

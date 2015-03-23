@@ -31,6 +31,8 @@ def populate():
     chrisProfile = UserProfile(user=chris,location="Glasgow")
     chrisProfile.save
 
+
+
     bob = User.objects.create_user( "Bob", "bob@gmail.com", "bob" )
     bob.first_name="bob"
     bob.is_superuser=True
@@ -50,6 +52,16 @@ def populate():
     Tim.save
     TimProfile = UserProfile(user=Tim,location="Birmingham")
     TimProfile.save
+
+    test = User.objects.create_user( "test", "a@b.com", "test" )
+    test.first_name="test"
+    test.is_superuser=True
+    test.is_staff=True
+    test.date_joined=datetime.datetime.today()
+    test.last_login=datetime.datetime.today()
+    test.save
+    testProfile = UserProfile(user=test,location="a place")
+    testProfile.save
 
 
 
@@ -91,7 +103,7 @@ def populate():
     joke.save()
     joke = Joke(category=science,content="Why did the acid go to the gym?",punchline="To become a buffer solution",rating=random.randint(-20, 20),postingUser=bob,datePosted=datetime.datetime.now().date()- timedelta(days=random.randint(0, 10)),reportFlag=False)
     joke.save()
-	
+
 # Start execution here!
 if __name__ == '__main__':
     print "Starting Joke Rater population script..."
