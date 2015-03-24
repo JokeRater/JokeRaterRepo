@@ -358,4 +358,14 @@ def suggest(request):
         if s.startswith(search):
             suggestion = s
     response = HttpResponse(suggestion)	
-    return response	
+    return response
+
+def search(request):
+    if request.method == "POST":
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+
+    jokes = Joke.objects.filter(content__contains=search_text)
+
+    return render(request, 'JokeRater/ajax_search.html', {'jokes':jokes})
