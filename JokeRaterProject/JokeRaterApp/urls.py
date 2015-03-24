@@ -10,6 +10,6 @@ urlpatterns = patterns('',
         url(r'^joke/(?P<category_name_slug>[\w\-]+)/$', views.joke, name='joke'),
         url(r'^topOverall/', views.overall, name='topOverall'),
         url(r'^topWeekly/', views.weekly, name='topWeekly'),
-        url(r'^search/$', views.search, name='search'),
+       # url(r'^search/$', views.search_titles, name='search'),
         )
 		

@@ -350,12 +350,12 @@ def weekly(request):
     j = Joke.objects.filter(datePosted__range=(start_date, end_date)).order_by('-rating')[:15]
     return render(request, 'JokeRater/topWeekly.html', {'weekly': j})
 
-def search(request):
-    if request.method == "POST":
-        search_text = request.POST['search_test']
-    else:
-        search_text = ''
-
-    jokes = Joke.objects.filter(content__contains=search_text)
-
-    return render_to_response('search.html', {'jokes':jokes})
+def suggest(request):
+    search = request.POST['search']
+    suggestion = ""
+    suggestion_list = ["puppy dog", "cats hate dogs","raining cats and dogs"]	
+    for	s in suggestion_list:
+        if s.startswith(search):
+            suggestion = s
+    response = HttpResponse(suggestion)	
+    return response	
