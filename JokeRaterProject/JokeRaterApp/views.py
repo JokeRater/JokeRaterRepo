@@ -99,6 +99,7 @@ def index(request):
 
     # Pass the jokes to the template
     context_dict = {}
+    context_dict.update(csrf(request))
     context_dict['joke1'] = joke1
     context_dict['joke2'] = joke2
 
@@ -362,9 +363,11 @@ def suggest(request):
 
 def search(request):
     if request.method == "POST":
-        search_text = request.POST['search_text']
+        search_text = request.POST.get('search_text')
     else:
         search_text = ''
+
+    searchText = str(search_text)
 
     jokes = Joke.objects.filter(content__contains=search_text)
 
