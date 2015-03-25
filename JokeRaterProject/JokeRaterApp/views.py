@@ -363,12 +363,17 @@ def suggest(request):
 
 def search(request):
     if request.method == "POST":
-        search_text = request.POST.get('search_text')
+        s = request.POST.get('search_text',None)
     else:
-        search_text = ''
+        s = ''
 
-    searchText = str(search_text)
+    searchText = str(s)
 
-    jokes = Joke.objects.filter(content__contains=search_text)
+    print searchText
+    print s
+    print 'hello'
+
+
+    jokes = Joke.objects.filter(content__contains=searchText)
 
     return render(request, 'JokeRater/ajax_search.html', {'jokes':jokes})
