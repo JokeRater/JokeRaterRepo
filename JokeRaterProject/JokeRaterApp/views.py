@@ -369,11 +369,6 @@ def search(request):
 
     searchText = str(s)
 
-    print searchText
-    print s
-    print 'hello'
-
-
-    jokes = Joke.objects.filter(content__contains=searchText)
+    jokes = Joke.objects.filter(content__contains=searchText) | Joke.objects.filter(punchline__contains=searchText)
 
     return render(request, 'JokeRater/ajax_search.html', {'jokes':jokes})
