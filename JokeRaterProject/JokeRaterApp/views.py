@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.core.context_processors import csrf
+import re
 
 from models import *
 from forms import *
@@ -367,6 +368,8 @@ def search(request):
     else:
         s = ''
 
+    s = re.sub('[^0-9a-zA-Z ]+', '',s)
+    
     searchText = str(s)
 
     jokes = Joke.objects.filter(content__contains=searchText) | Joke.objects.filter(punchline__contains=searchText)
